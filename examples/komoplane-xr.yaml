@@ -1,0 +1,10 @@
+apiVersion: platform.jlasut.io/v1alpha1
+kind: XKomoplane
+metadata:
+  name: configuration-komoplane
+spec:
+  parameters:
+    providerConfigName: configuration-komoplane
+    operators:
+      komoplane:
+        hostname: komoplane.127.0.0.1.nip.io

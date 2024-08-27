@@ -1,0 +1,59 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xkomoplane.platform.jlasut.io
+spec:
+  group: platform.jlasut.io
+  names:
+    kind: XKomoplane
+    plural: xkomoplane
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  description: Komoplane configuration parameters.
+                  properties:
+                    providerConfigName:
+                      type: string
+                      description: Crossplane ProviderConfig to use for provisioning this resources
+                    deletionPolicy:
+                      description: Delete the external resources when the Claim/XR is deleted. Defaults to Delete
+                      enum:
+                        - Delete
+                        - Orphan
+                      type: string
+                      default: Delete
+                    operators:
+                      description: Configuration for operators.
+                      type: object
+                      default:
+                        komoplane:
+                          version: "0.1.5"
+                      properties:
+                        komoplane:
+                          description: Configuration for the Komoplane UI.
+                          type: object
+                          properties:
+                            version:
+                              description: Komoplane helm-chart version to run.
+                              type: string
+                              default: "0.1.5"
+                            hostname:
+                              description: Ingress URL for the UI
+                              type: string
+                          required:
+                            - hostname
+                            - version
+                  required:
+                    - providerConfigName
+                    - deletionPolicy
+                    - operators
