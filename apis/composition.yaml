@@ -50,7 +50,7 @@ spec:
                         - host: komoplane.127.0.0.1.nip.io
                           paths:
                             - path: /
-                              pathType: ImplementationSpecific
+                              pathType: Prefix
                     autoscaling:
                       enabled: true
                       minReplicas: 1
